@@ -19,6 +19,25 @@ const App = () => {
   const [selectedIndices, setSelectedIndices] = useState(
     Array.from({ length: 8 }, () => 0)
   );
+  const [messages, setMessages] = useState([
+    "You were born",
+    "You were named Jack",
+    "You were born",
+    "You were named Jack",
+    "You were born",
+    "You were named Jack",
+    "You were born",
+    "You were named Jack",
+    "You were born",
+    "You were named Jack",
+    "You were born",
+    "You were named Jack",
+    "You were born",
+    "You were named Jack",
+    "You were born",
+    "You were named Jack",
+  ]);
+
   const [playerData, setPlayerData] = useState([
     {
       birthDate: "1901-01-01",
@@ -307,6 +326,7 @@ const App = () => {
           setGamePaused={setGamePaused}
           playerData={playerData}
           updatePlayerData={updatePlayerData}
+          messages={messages}
         />
       </div>
     </div>

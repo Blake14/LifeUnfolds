@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import ExampleComponent from "../ExampleComponent";
 import CharacterInfo from "./CharacterInfo";
 import CharacterStatus from "./CharacterStatus";
 import CharacterRoutine from "./CharacterRoutine";
 import Notifications from "./Notifications";
+import MessageCenter from "./MessageCenter";
 
 const ModuleContainer = ({
   colors,
@@ -14,6 +15,7 @@ const ModuleContainer = ({
   selectedIndices,
   setSelectedIndices,
   playerData,
+  messages,
 }) => {
   const handleChange = (index, event) => {
     const newSelectedIndices = [...selectedIndices];
@@ -27,6 +29,7 @@ const ModuleContainer = ({
     { id: 3, name: "Character Status", component: CharacterStatus },
     { id: 4, name: "My Routine", component: CharacterRoutine },
     { id: 5, name: "Notifications", component: Notifications },
+    { id: 6, name: "MessageCenter", component: MessageCenter },
   ];
 
   return (
@@ -58,11 +61,12 @@ const ModuleContainer = ({
               backgroundColor: colors.moduleBackground,
               color: colors.textHighlight,
               borderRadius: "8px",
-              padding: 20,
+
               boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)",
               display: "flex",
-              flexDirection: "column",
               width: "100%",
+              height: "100%",
+              position: "relative",
             }}
           >
             <select
@@ -70,10 +74,13 @@ const ModuleContainer = ({
               onChange={(e) => handleChange(index, e)}
               style={{
                 padding: "10px",
-                marginBottom: "20px",
                 backgroundColor: colors.accent,
                 color: colors.textHighlight,
                 border: `1px solid ${colors.highlight}`,
+                position: "absolute",
+                top: 20,
+                left: "5%",
+                width: "90%",
               }}
             >
               {ModuleArray.map((module, idx) => (
@@ -89,7 +96,17 @@ const ModuleContainer = ({
                 </option>
               ))}
             </select>
-            <div>
+            <div
+              style={{
+                height: "100%",
+                width: "100%",
+                paddingTop: 70,
+                border: "1px solid red",
+                paddingLeft: 10,
+                paddingRight: 10,
+                paddingBottom: 10,
+              }}
+            >
               {React.createElement(ModuleArray[selectedIndex].component, {
                 birthDate: birthDate,
                 gameTime: gameTime,
@@ -97,6 +114,7 @@ const ModuleContainer = ({
                 attributes: attributes,
                 colors: colors,
                 playerData: playerData,
+                messages: messages,
               })}
             </div>
           </div>

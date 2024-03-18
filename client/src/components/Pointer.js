@@ -16,6 +16,7 @@ const Pointer = ({
   setGamePaused,
   playerData,
   updatePlayerData,
+  messages,
 }) => {
   if (currentPage === 99 || playerData[0].nameLog[0].firstName === "No") {
     setGamePaused(true);
@@ -40,6 +41,7 @@ const Pointer = ({
         setSelectedIndices={setSelectedIndices}
         selectedIndices={selectedIndices}
         playerData={playerData}
+        messages={messages}
       />
     );
   } else if (currentPage === 1) {
