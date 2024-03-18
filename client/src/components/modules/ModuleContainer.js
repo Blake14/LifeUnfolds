@@ -51,6 +51,7 @@ const ModuleContainer = ({
 						alignContent: 'center',
 						padding: 10,
 						width: '25%',
+						height: '50%',
 					}}
 					key={index}
 				>
