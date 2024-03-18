@@ -16,6 +16,9 @@ const App = () => {
 		activeIcon: '#FFD700', // Active icon color
 		inactiveIcon: '#B1B1B1', // Inactive icon color
 	};
+	const [selectedIndices, setSelectedIndices] = useState(
+		Array.from({ length: 8 }, () => 0)
+	);
 
 	const timeUnitOptions = ['second', 'minute', 'hour', 'day', 'month', 'year'];
 	const [currentPage, setCurrentPage] = useState(0);
@@ -225,6 +228,8 @@ const App = () => {
 					attributes={attributes}
 					currentPage={currentPage}
 					setCurrentPage={setCurrentPage}
+					setSelectedIndices={setSelectedIndices}
+					selectedIndices={selectedIndices}
 				/>
 			</div>
 		</div>

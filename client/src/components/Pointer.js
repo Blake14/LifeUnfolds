@@ -10,6 +10,8 @@ const Pointer = ({
 	attributes,
 	currentPage,
 	setCurrentPage,
+	setSelectedIndices,
+	selectedIndices,
 }) => {
 	if (currentPage === 0) {
 		return (
@@ -19,6 +21,8 @@ const Pointer = ({
 				gameTime={gameTime}
 				formatDate={formatDate}
 				attributes={attributes}
+				setSelectedIndices={setSelectedIndices}
+				selectedIndices={selectedIndices}
 			/>
 		);
 	} else if (currentPage === 1) {

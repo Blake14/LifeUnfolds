@@ -11,14 +11,12 @@ const ModuleContainer = ({
 	gameTime,
 	formatDate,
 	attributes,
+	selectedIndices,
+	setSelectedIndices,
 }) => {
-	const [selectedIndices, setSelectedIndices] = useState(
-		Array.from({ length: 8 }, () => 0)
-	);
-
 	const handleChange = (index, event) => {
 		const newSelectedIndices = [...selectedIndices];
-		newSelectedIndices[index] = event.target.value;
+		newSelectedIndices[index] = parseInt(event.target.value, 10);
 		setSelectedIndices(newSelectedIndices);
 	};
 
