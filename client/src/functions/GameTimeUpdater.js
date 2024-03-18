@@ -5,21 +5,38 @@ const GameTimeUpdater = ({
 	setGameTime,
 	timeMultiplier,
 	gamePaused,
+	attributes,
+	setAttributes,
 }) => {
 	useEffect(() => {
-		// Only set up the interval if the game is not paused
 		if (!gamePaused) {
 			const multiplier = getMultiplierMilliseconds(timeMultiplier);
 			const timer = setInterval(() => {
 				const newTime = new Date(gameTime.getTime() + multiplier);
 				setGameTime(newTime);
-			}, 1000); // Update every second based on the multiplier
 
-			// Clear the interval on effect cleanup or when game is paused
+				// Update the attributes in an immutable way
+				const updatedAttributes = attributes.map((attr) => {
+					if (attr.name === 'Energy') {
+						// Preventing energy from going below 0
+						const newValue = attr.value > 0 ? attr.value - 1 : 0;
+						return { ...attr, value: newValue };
+					}
+					return attr;
+				});
+
+				setAttributes(updatedAttributes);
+			}, 1000);
 			return () => clearInterval(timer);
 		}
-		// You could optionally handle any necessary actions when paused/resumed here
-	}, [gameTime, setGameTime, timeMultiplier, gamePaused]); // Include gamePaused in dependencies
+	}, [
+		gameTime,
+		setGameTime,
+		timeMultiplier,
+		gamePaused,
+		attributes,
+		setAttributes,
+	]);
 
 	function getMultiplierMilliseconds({ value, unit }) {
 		switch (unit) {
@@ -36,7 +53,7 @@ const GameTimeUpdater = ({
 			case 'year':
 				return value * 31557600000;
 			default:
-				return value * 1000; // Default back to second if no match
+				return value * 1000;
 		}
 	}
 
