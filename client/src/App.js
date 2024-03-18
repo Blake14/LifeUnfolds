@@ -19,10 +19,93 @@ const App = () => {
   const [selectedIndices, setSelectedIndices] = useState(
     Array.from({ length: 8 }, () => 0)
   );
-
+  const [playerData, setPlayerData] = useState([
+    {
+      birthDate: "1901-01-01",
+      deathDate: null,
+      log: [],
+      routine: [
+        {
+          startHr: 1,
+          endHr: 2,
+          status: "sleep",
+        },
+        {
+          startHr: 2,
+          endHr: 3,
+          status: "sleep",
+        },
+        {
+          startHr: 3,
+          endHr: 4,
+          status: "sleep",
+        },
+        {
+          startHr: 4,
+          endHr: 5,
+          status: "sleep",
+        },
+        {
+          startHr: 5,
+          endHr: 6,
+          status: "sleep",
+        },
+        {
+          startHr: 6,
+          endHr: 7,
+          status: "sleep",
+        },
+        {
+          startHr: 7,
+          endHr: 8,
+          status: "sleep",
+        },
+      ],
+      ratings: [
+        {
+          social: 0,
+          athletics: 0,
+          intelligence: 0,
+          empathy: 0,
+          mentalStability: 0,
+          immunity: 0,
+          addictive: 0,
+        },
+      ],
+      nameLog: [
+        {
+          firstName: "No",
+          lastName: "Name",
+          effectiveDate: "1901-01-01",
+          expirationDate: null,
+        },
+      ],
+      family: [],
+      homeLog: [
+        {
+          cityName: "New York City",
+          stateAbbr: "NY",
+          address: "123 Main St.",
+          effectiveDate: "1901-01-01",
+          expirationDate: null,
+          status: "Resident - Dependent",
+        },
+      ],
+    },
+  ]);
   const timeUnitOptions = ["second", "minute", "hour", "day", "month", "year"];
   const [currentPage, setCurrentPage] = useState(0);
   // 0 = Home, 1 = Settings
+  const updatePlayerData = (newData) => {
+    setPlayerData((prevData) => {
+      // Create a new object with updated data to maintain immutability
+      return [{ ...prevData[0], ...newData }];
+    });
+  };
+
+  // Pass updatePlayerData down to where it's needed, e.g., BeBornButton
+  // Continue with the rest of the App component...
+
   useEffect(() => {
     document.body.style.backgroundColor = colors.background;
     document.body.style.color = colors.text;
@@ -221,6 +304,9 @@ const App = () => {
           setCurrentPage={setCurrentPage}
           setSelectedIndices={setSelectedIndices}
           selectedIndices={selectedIndices}
+          setGamePaused={setGamePaused}
+          playerData={playerData}
+          updatePlayerData={updatePlayerData}
         />
       </div>
     </div>
