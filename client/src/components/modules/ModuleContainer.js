@@ -3,6 +3,7 @@ import ExampleComponent from '../ExampleComponent';
 import CharacterInfo from './CharacterInfo';
 import CharacterStatus from './CharacterStatus';
 import CharacterRoutine from './CharacterRoutine';
+import Notifications from './Notifications';
 
 const ModuleContainer = ({
 	colors,
@@ -26,6 +27,7 @@ const ModuleContainer = ({
 		{ id: 2, name: 'Character Info', component: CharacterInfo },
 		{ id: 3, name: 'Character Status', component: CharacterStatus },
 		{ id: 4, name: 'My Routine', component: CharacterRoutine },
+		{ id: 5, name: 'Notifications', component: Notifications },
 	];
 
 	return (

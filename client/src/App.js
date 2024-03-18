@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import GameTimeUpdater from './functions/GameTimeUpdater';
 import Form from 'react-bootstrap/Form';
 import { BiPlay, BiPause } from 'react-icons/bi';
-import ModuleContainer from './components/modules/ModuleContainer';
+import { FaGear } from 'react-icons/fa6';
+import Pointer from './components/Pointer';
 
 const App = () => {
 	const colors = {
@@ -17,7 +18,8 @@ const App = () => {
 	};
 
 	const timeUnitOptions = ['second', 'minute', 'hour', 'day', 'month', 'year'];
-
+	const [currentPage, setCurrentPage] = useState(0);
+	// 0 = Home, 1 = Settings
 	useEffect(() => {
 		document.body.style.backgroundColor = colors.background;
 		document.body.style.color = colors.text;
@@ -141,6 +143,15 @@ const App = () => {
 				}}
 			>
 				<div>{formatDate(gameTime)}</div>
+				<p
+					onClick={() => setCurrentPage(1)}
+					style={{
+						height: 10,
+						cursor: 'pointer',
+					}}
+				>
+					<FaGear /> {` `}Settings
+				</p>
 
 				<div
 					style={{
@@ -206,12 +217,14 @@ const App = () => {
 					overflow: 'hidden',
 				}}
 			>
-				<ModuleContainer
+				<Pointer
 					colors={colors}
 					birthDate={birthDate}
 					gameTime={gameTime}
 					formatDate={formatDate}
 					attributes={attributes}
+					currentPage={currentPage}
+					setCurrentPage={setCurrentPage}
 				/>
 			</div>
 		</div>
