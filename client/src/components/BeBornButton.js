@@ -1,47 +1,91 @@
-import React from "react";
+import React from 'react';
+import GenerateRandomName from '../functions/GenerateRandomName';
+import GenerateBirthdate from '../functions/GenerateBirthdate';
 
 const BeBornButton = ({
-  colors,
-  playerData,
-  setCurrentPage,
-  updatePlayerData,
+	colors,
+	setCurrentPage,
+	updatePlayerData,
+	setMessages,
+	messages,
+	setGameTime,
+	playerData,
+	gameTime,
 }) => {
-  const containerStyle = {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100vh", // Full viewport height
-    width: "100vw",
-    backgroundColor: colors.background, // Use the background color for consistency
-  };
+	const containerStyle = {
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
+		height: '100vh',
+		width: '100vw',
+		backgroundColor: colors.background,
+	};
 
-  const buttonStyle = {
-    backgroundColor: colors.moduleBackground, // A prominent color for the button
-    color: colors.textHighlight, // Text color for contrast
-    fontSize: "24px", // Larger font size for prominence
-    padding: "20px 40px", // Generous padding for a larger click area
-    border: "none",
-    borderRadius: "8px",
-    cursor: "pointer",
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)", // Subtle shadow for depth
-    transition: "transform 0.1s ease", // Smooth transform on click
-  };
+	const buttonStyle = {
+		backgroundColor: colors.moduleBackground,
+		color: colors.textHighlight,
+		fontSize: '24px',
+		padding: '20px 40px',
+		border: 'none',
+		borderRadius: '8px',
+		cursor: 'pointer',
+		boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+		transition: 'transform 0.1s ease',
+	};
 
-  return (
-    <div style={containerStyle}>
-      <button
-        style={buttonStyle}
-        onClick={() => {
-          updatePlayerData({
-            nameLog: [{ firstName: "B", lastName: "McPherson" }],
-          });
-          setCurrentPage(0);
-        }}
-      >
-        Be Born
-      </button>
-    </div>
-  );
+	const handleBeBornClick = () => {
+		const charFirstName = GenerateRandomName('first');
+		const dadFirstName = GenerateRandomName('first');
+		const momFirstName = GenerateRandomName('first');
+		const famLastName = GenerateRandomName('last');
+
+		const birthday = GenerateBirthdate();
+
+		// Using setGameTime directly with the birthday object, which should have correct local time.
+		setGameTime(birthday);
+
+		// Creating a local date string that doesn't convert to UTC
+		const birthDateString =
+			[
+				birthday.getFullYear(),
+				('0' + (birthday.getMonth() + 1)).slice(-2),
+				('0' + birthday.getDate()).slice(-2),
+			].join('-') +
+			' ' +
+			[
+				('0' + birthday.getHours()).slice(-2),
+				('0' + birthday.getMinutes()).slice(-2),
+				('0' + birthday.getSeconds()).slice(-2),
+			].join(':');
+
+		setMessages([
+			...messages,
+			`You were born on ${birthday.toISOString().split('T')[0]}`,
+			`You were named ${charFirstName} ${famLastName} by your parents ${dadFirstName} and ${momFirstName} ${famLastName} on ${
+				birthday.toISOString().split('T')[0]
+			}`,
+		]);
+		updatePlayerData({
+			birthDate: birthDateString,
+			nameLog: [
+				{
+					firstName: charFirstName,
+					lastName: famLastName,
+					effectiveDate: birthDateString,
+				},
+			],
+		});
+
+		setCurrentPage(0);
+	};
+
+	return (
+		<div style={containerStyle}>
+			<button style={buttonStyle} onClick={handleBeBornClick}>
+				Be Born
+			</button>
+		</div>
+	);
 };
 
 export default BeBornButton;

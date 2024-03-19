@@ -9,7 +9,7 @@ const GameTimeUpdater = ({
 	setAttributes,
 }) => {
 	useEffect(() => {
-		if (!gamePaused) {
+		if (!gamePaused && gameTime != undefined) {
 			const multiplier = getMultiplierMilliseconds(timeMultiplier);
 			const timer = setInterval(() => {
 				const newTime = new Date(gameTime.getTime() + multiplier);
