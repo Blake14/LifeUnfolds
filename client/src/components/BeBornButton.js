@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import GenerateRandomName from '../functions/GenerateRandomName';
 import GenerateBirthdate from '../functions/GenerateBirthdate';
+import Image from 'react-bootstrap/Image';
+import logo from '../logo.png';
 
 const BeBornButton = ({
 	colors,
@@ -14,6 +16,7 @@ const BeBornButton = ({
 
 	const containerStyle = {
 		display: 'flex',
+		flexDirection: 'column', // Change to column to stack logo and button
 		justifyContent: 'center',
 		alignItems: 'center',
 		height: '100vh',
@@ -31,6 +34,7 @@ const BeBornButton = ({
 		cursor: 'pointer',
 		boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
 		transition: 'transform 0.1s ease',
+		marginTop: '20px', // Add some margin top for spacing from the logo
 	};
 
 	const labelStyle = {
@@ -38,6 +42,7 @@ const BeBornButton = ({
 		color: colors.textHighlight,
 		cursor: 'pointer',
 		marginLeft: '10px',
+		marginTop: '20px', // Add some margin top for spacing from the button
 	};
 
 	const checkboxStyle = {
@@ -52,7 +57,6 @@ const BeBornButton = ({
 		cursor: 'pointer',
 		marginRight: '5px',
 	};
-
 	const handleBeBornClick = () => {
 		const charFirstName = GenerateRandomName('first');
 		const dadFirstName = GenerateRandomName('first');
@@ -105,26 +109,25 @@ const BeBornButton = ({
 
 	return (
 		<div style={containerStyle}>
-			<div>
-				<button
-					style={buttonStyle}
-					onClick={handleBeBornClick}
-					title={enableTooltips ? 'Click to start your journey!' : ''}
-				>
-					Be Born
-				</button>
-				<div style={{ marginTop: '20px' }}>
-					<input
-						id='enableTooltips'
-						type='checkbox'
-						checked={enableTooltips}
-						onChange={toggleTooltips}
-						style={checkboxStyle}
-					/>
-					<label htmlFor='enableTooltips' style={labelStyle}>
-						Enable Tooltips
-					</label>
-				</div>
+			<Image src={logo} style={{ width: '50%', marginBottom: 30 }} />
+			<button
+				style={buttonStyle}
+				onClick={handleBeBornClick}
+				title={enableTooltips ? 'Click to start your journey!' : ''}
+			>
+				Be Born
+			</button>
+			<div style={{ display: 'flex', alignItems: 'center', marginTop: '20px' }}>
+				<input
+					id='enableTooltips'
+					type='checkbox'
+					checked={enableTooltips}
+					onChange={toggleTooltips}
+					style={checkboxStyle}
+				/>
+				<label htmlFor='enableTooltips' style={labelStyle}>
+					Enable Tooltips
+				</label>
 			</div>
 		</div>
 	);

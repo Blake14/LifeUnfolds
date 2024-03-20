@@ -6,7 +6,8 @@ import Pointer from './components/Pointer';
 import MenuBarOptions from './components/MenuBarOptions';
 import CalculateAge from './functions/CalculateAge';
 import GetLifeStage from './functions/GetLifeStage';
-import GenerateBirthdate from './functions/GenerateBirthdate';
+import simpleLogo from './logo-simple.png';
+import Image from 'react-bootstrap/Image';
 
 const App = () => {
 	const [toolTips, setToolTips] = useState({
@@ -520,7 +521,8 @@ const App = () => {
 					alignItems: 'center',
 				}}
 			>
-				<div style={{ width: 400, height: 75 }}>
+				<Image src={simpleLogo} style={{ height: 55, marginRight: 35 }} />
+				<div style={{ width: 400, height: 75, paddingTop: 10 }}>
 					<p style={{ fontSize: 12 }}>
 						{`${playerData[0].nickName || playerData[0].nameLog[0].firstName} ${
 							playerData[0].nameLog[0].lastName
@@ -530,7 +532,7 @@ const App = () => {
 								: 'Determining life stage...'
 						}`}
 					</p>
-					<p style={{ fontSize: 15 }}>
+					<p style={{ fontSize: 15, paddingTop: -5 }}>
 						{gameTime ? formatDate(gameTime) : 'Loading...'}
 					</p>
 				</div>
