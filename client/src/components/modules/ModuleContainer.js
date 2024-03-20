@@ -21,6 +21,8 @@ const ModuleContainer = ({
 	updatePlayerData,
 	setMessages,
 	age,
+	settings,
+	setSettings,
 }) => {
 	const handleChange = (index, event) => {
 		const newSelectedIndices = [...selectedIndices];
@@ -124,6 +126,8 @@ const ModuleContainer = ({
 								playerBirthDate: playerBirthDate,
 								updatePlayerData: updatePlayerData,
 								age: age,
+								settings: settings,
+								setSettings: setSettings,
 							})}
 						</div>
 					</div>

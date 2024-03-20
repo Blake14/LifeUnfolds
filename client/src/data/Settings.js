@@ -204,4 +204,11 @@ export const Settings = [
 		placeholder: 0.6,
 		type: 'input',
 	},
+	{
+		name: 'Age Limit to Change Name',
+		default: 'No',
+		placeholder: 'Select Yes/No',
+		type: 'select',
+		options: ['No', 'Yes'],
+	},
 ];

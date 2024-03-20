@@ -18,8 +18,8 @@ const GenerateBirthdate = () => {
 	][month];
 	const day = Math.floor(Math.random() * daysInMonth) + 1;
 	const hours = Math.floor(Math.random() * 24);
-	const minutes = Math.floor(Math.random() * 60);
-	const seconds = Math.floor(Math.random() * 60);
+	const minutes = 0;
+	const seconds = 0;
 
 	return new Date(year, month, day, hours, minutes, seconds);
 };

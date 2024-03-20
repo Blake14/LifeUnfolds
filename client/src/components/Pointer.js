@@ -22,6 +22,8 @@ const Pointer = ({
 	setGameTime,
 	playerBirthDate,
 	age,
+	setSettings,
+	settings,
 }) => {
 	// Use useEffect to handle side effects based on currentPage or playerData changes.
 	useEffect(() => {
@@ -67,6 +69,8 @@ const Pointer = ({
 				updatePlayerData={updatePlayerData}
 				setMessages={setMessages}
 				age={age}
+				settings={settings}
+				setSettings={setSettings}
 			/>
 		);
 	} else if (currentPage === 1) {
@@ -75,6 +79,8 @@ const Pointer = ({
 				colors={colors}
 				currentPage={currentPage}
 				setCurrentPage={setCurrentPage}
+				settings={settings}
+				setSettings={setSettings}
 			/>
 		);
 	} else {

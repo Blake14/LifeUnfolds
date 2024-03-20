@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaSave } from 'react-icons/fa';
 import SubWarning from '../SubWarning';
 import ParseAgeString from '../../functions/ParseAgeString';
@@ -14,11 +14,19 @@ const CharacterInfo = ({
 	setMessages,
 	messages,
 	age,
+	settings,
+	setSettings,
 }) => {
-	let ageInt = 0;
-	if (age) {
-		ageInt = ParseAgeString(age);
-	}
+	const [agePass, setAgePass] = useState(false);
+	const ageLimitSetting =
+		settings.find((s) => s.name === 'Age Limit to Change Name').value === 'Yes';
+
+	useEffect(() => {
+		const parsedAge = ParseAgeString(age);
+		const isOldEnough = parsedAge.unit === 'year' && parsedAge.age >= 18;
+		setAgePass(ageLimitSetting ? isOldEnough : true);
+	}, [age, ageLimitSetting]);
+
 	const [editFirstName, setEditFirstName] = useState(
 		playerData[0].nameLog[0].firstName
 	);
@@ -56,7 +64,7 @@ const CharacterInfo = ({
 	};
 
 	const updateField = (field, value) => {
-		if (ageInt >= 18) {
+		if (agePass) {
 			if (field === 'firstName' || field === 'lastName') {
 				// Updating name log with the new name and appending a message
 				const updatedNameLog = playerData[0].nameLog.map((entry, index) => {
@@ -85,9 +93,9 @@ const CharacterInfo = ({
 			<label style={lblStyle}>First Name: </label>
 			<input
 				type='text'
-				disabled={ageInt >= 18 ? false : true}
+				disabled={!agePass}
 				style={
-					ageInt >= 18
+					agePass
 						? inputStyle
 						: {
 								...inputStyle,
@@ -102,11 +110,11 @@ const CharacterInfo = ({
 			<FaSave
 				style={{
 					...icnStyle,
-					color: ageInt >= 18 ? colors.textHighlight : 'gray',
-					cursor: ageInt >= 18 ? 'pointer' : 'not-allowed',
+					color: agePass ? colors.textHighlight : 'gray',
+					cursor: agePass ? 'pointer' : 'not-allowed',
 				}}
 				onClick={() =>
-					ageInt >= 18
+					agePass
 						? updateField('firstName', editFirstName)
 						: alert(
 								'You must be at least 18 years old to legally change your name.'
@@ -118,7 +126,7 @@ const CharacterInfo = ({
 				alertText={
 					'You must be at least 18 years old to legally change your name.'
 				}
-				show={ageInt < 18}
+				show={!agePass}
 				color={'#f06543'}
 				size={10}
 			/>
@@ -126,9 +134,9 @@ const CharacterInfo = ({
 			<label style={lblStyle}>Last Name: </label>
 			<input
 				type='text'
-				disabled={ageInt >= 18 ? false : true}
+				disabled={!agePass}
 				style={
-					ageInt >= 18
+					agePass
 						? inputStyle
 						: {
 								...inputStyle,
@@ -142,11 +150,11 @@ const CharacterInfo = ({
 			<FaSave
 				style={{
 					...icnStyle,
-					color: ageInt >= 18 ? colors.textHighlight : 'gray',
-					cursor: ageInt >= 18 ? 'pointer' : 'not-allowed',
+					color: agePass ? colors.textHighlight : 'gray',
+					cursor: agePass ? 'pointer' : 'not-allowed',
 				}}
 				onClick={() =>
-					ageInt >= 18
+					agePass
 						? updateField('lastName', editLastName)
 						: alert(
 								'You must be at least 18 years old to legally change your name.'
@@ -158,7 +166,7 @@ const CharacterInfo = ({
 				alertText={
 					'You must be at least 18 years old to legally change your name.'
 				}
-				show={ageInt < 18}
+				show={!agePass}
 				color={'#f06543'}
 				size={10}
 			/>

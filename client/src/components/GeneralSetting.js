@@ -1,15 +1,24 @@
-import React from 'react';
-import { Settings } from '../data/Settings';
+import React, { useState } from 'react';
 
-const GeneralSetting = ({ colors, setCurrentPage }) => {
+const GeneralSetting = ({ colors, setCurrentPage, setSettings, settings }) => {
+	const handleChange = (index, value) => {
+		setSettings((prevSettings) => {
+			return prevSettings.map((setting, i) => {
+				if (i === index) {
+					return { ...setting, value: value };
+				}
+				return setting;
+			});
+		});
+	};
+
 	const btnStyles = {
 		color: colors.textHighlight,
 		backgroundColor: colors.moduleBackground,
 		border: 'none',
 		padding: '10px 20px',
 		cursor: 'pointer',
-		marginBottom: '20px',
-		marginRight: '10px',
+		margin: '20px',
 		borderRadius: '8px',
 		fontSize: '14px',
 		boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
@@ -42,24 +51,27 @@ const GeneralSetting = ({ colors, setCurrentPage }) => {
 		marginBottom: '5px',
 		fontWeight: 'bold',
 	};
-
-	// Enhanced function to render inputs or selects based on the setting type
-	const renderSettingInput = (setting) => {
+	const renderSettingInput = (setting, index) => {
 		switch (setting.type) {
 			case 'input':
 				return (
 					<input
 						type='number'
 						style={inputStyle}
-						defaultValue={setting.default}
+						value={setting.value}
 						min={setting.min}
 						max={setting.max}
 						placeholder={setting.placeholder}
+						onChange={(e) => handleChange(index, e.target.value)}
 					/>
 				);
 			case 'select':
 				return (
-					<select style={inputStyle} defaultValue={setting.value}>
+					<select
+						style={inputStyle}
+						value={setting.value}
+						onChange={(e) => handleChange(index, e.target.value)}
+					>
 						{setting.options.map((option) => (
 							<option key={option} value={option}>
 								{option}
@@ -67,30 +79,19 @@ const GeneralSetting = ({ colors, setCurrentPage }) => {
 						))}
 					</select>
 				);
-			default:
-				return null;
+				value: return null;
 		}
 	};
 
 	return (
 		<div
 			style={{
-				backgroundColor: colors.background,
-				color: colors.text,
-				height: '100%',
-				width: '100%',
-				overflow: 'auto',
-				padding: '20px',
+				padding: 20,
+				overflowY: 'scroll',
 			}}
 		>
-			<div
-				style={{
-					display: 'flex',
-					justifyContent: 'left',
-					alignItems: 'center',
-				}}
-			>
-				<button onClick={() => setCurrentPage(0)} style={{ ...btnStyles }}>
+			<div>
+				<button onClick={() => setCurrentPage(0)} style={btnStyles}>
 					Back
 				</button>
 				<button style={{ ...btnStyles, backgroundColor: '#f09d51' }}>
@@ -98,14 +99,14 @@ const GeneralSetting = ({ colors, setCurrentPage }) => {
 				</button>
 			</div>
 
-			<div style={{ ...settingsContainerStyle }}>
+			<div style={settingsContainerStyle}>
 				<h2 style={{ color: colors.textHighlight, width: '100%' }}>
 					General Settings
 				</h2>
-				{Settings.map((setting, index) => (
-					<div key={index} style={{ ...settingStyle }}>
-						<label style={{ ...labelStyle }}>{setting.name}</label>
-						{renderSettingInput(setting)}
+				{settings.map((setting, index) => (
+					<div key={index} style={settingStyle}>
+						<label style={labelStyle}>{setting.name}</label>
+						{renderSettingInput(setting, index)}
 					</div>
 				))}
 			</div>

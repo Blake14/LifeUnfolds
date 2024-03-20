@@ -31,43 +31,7 @@ const App = () => {
 			birthDate: null,
 			deathDate: null,
 			log: [],
-			routine: [
-				{
-					startHr: 1,
-					endHr: 2,
-					status: 'sleep',
-				},
-				{
-					startHr: 2,
-					endHr: 3,
-					status: 'sleep',
-				},
-				{
-					startHr: 3,
-					endHr: 4,
-					status: 'sleep',
-				},
-				{
-					startHr: 4,
-					endHr: 5,
-					status: 'sleep',
-				},
-				{
-					startHr: 5,
-					endHr: 6,
-					status: 'sleep',
-				},
-				{
-					startHr: 6,
-					endHr: 7,
-					status: 'sleep',
-				},
-				{
-					startHr: 7,
-					endHr: 8,
-					status: 'sleep',
-				},
-			],
+			routine: [],
 			ratings: [
 				{
 					social: 0,
@@ -100,7 +64,222 @@ const App = () => {
 			],
 		},
 	]);
-	const timeUnitOptions = ['second', 'minute', 'hour', 'day', 'month', 'year'];
+	const [settings, setSettings] = useState([
+		{
+			name: 'Max Health',
+			value: 100,
+			min: 0,
+			max: 300,
+			placeholder: 99,
+			type: 'input',
+		},
+		{
+			name: 'Max Energy',
+			value: 100,
+			min: 0,
+			max: 300,
+			placeholder: 99,
+			type: 'input',
+		},
+		{
+			name: 'Avg Life Expectancy',
+			value: 76,
+			min: 18,
+			max: 149,
+			placeholder: 69,
+			type: 'input',
+		},
+		{
+			name: 'Autosave Interval',
+			value: 'Every Month',
+			placeholder: 'Select Interval',
+			type: 'select',
+			options: ['Every Day', 'Every Month'],
+		},
+		{
+			name: 'Infinite Hunger',
+			value: 'No',
+			placeholder: 'Select Yes/No',
+			type: 'select',
+			options: ['No', 'Yes'],
+		},
+		{
+			name: 'Infinite Hydration',
+			value: 'No',
+			placeholder: 'Select Yes/No',
+			type: 'select',
+			options: ['No', 'Yes'],
+		},
+		{
+			name: 'Infinite Energy',
+			value: 'No',
+			placeholder: 'Select Yes/No',
+			type: 'select',
+			options: ['No', 'Yes'],
+		},
+		{
+			name: 'Infinite Sanity',
+			value: 'No',
+			placeholder: 'Select Yes/No',
+			type: 'select',
+			options: ['No', 'Yes'],
+		},
+		{
+			name: 'Infinite Morale',
+			value: 'No',
+			placeholder: 'Select Yes/No',
+			type: 'select',
+			options: ['No', 'Yes'],
+		},
+		{
+			name: 'Infinite Fatigue',
+			value: 'No',
+			placeholder: 'Select Yes/No',
+			type: 'select',
+			options: ['No', 'Yes'],
+		},
+		{
+			name: 'Infinite Social',
+			value: 'No',
+			placeholder: 'Select Yes/No',
+			type: 'select',
+			options: ['No', 'Yes'],
+		},
+		{
+			name: 'Infinite Health',
+			value: 'No',
+			placeholder: 'Select Yes/No',
+			type: 'select',
+			options: ['No', 'Yes'],
+		},
+		{
+			name: 'Infinite Happiness',
+			value: 'No',
+			placeholder: 'Select Yes/No',
+			type: 'select',
+			options: ['No', 'Yes'],
+		},
+		{
+			name: 'Infinite Money',
+			value: 'No',
+			placeholder: 'Select Yes/No',
+			type: 'select',
+			options: ['No', 'Yes'],
+		},
+		{
+			name: 'Federal Tax Rate',
+			value: 0.14,
+			min: 0,
+			max: 0.35,
+			placeholder: 0.14,
+			type: 'input',
+		},
+		{
+			name: 'Local Tax Rate',
+			value: 0.05,
+			min: 0,
+			max: 0.2,
+			placeholder: 0.05,
+			type: 'input',
+		},
+		{
+			name: 'Inflation Rate',
+			value: 0.02,
+			min: -0.01,
+			max: 0.1,
+			placeholder: 0.02,
+			type: 'input',
+		},
+		{
+			name: 'Population Growth Rate',
+			value: 0.01,
+			min: 0,
+			max: 0.03,
+			placeholder: 0.01,
+			type: 'input',
+		},
+		{
+			name: 'Wage Growth Rate',
+			value: 0.03,
+			min: 0,
+			max: 0.08,
+			placeholder: 0.03,
+			type: 'input',
+		},
+		{
+			name: 'Mortality Rate',
+			value: 0.008,
+			min: 0.005,
+			max: 0.015,
+			placeholder: 0.008,
+			type: 'input',
+		},
+		{
+			name: 'Crime Rate',
+			value: 0.04,
+			min: 0,
+			max: 0.4,
+			placeholder: 0.04,
+			type: 'input',
+		},
+		{
+			name: 'Education Quality Index',
+			value: 0.7,
+			min: 0,
+			max: 1,
+			placeholder: 0.7,
+			type: 'input',
+		},
+		{
+			name: 'Unemployment Rate',
+			value: 0.05,
+			min: 0,
+			max: 0.25,
+			placeholder: 0.05,
+			type: 'input',
+		},
+		{
+			name: 'Healthcare Quality Index',
+			value: 0.75,
+			min: 0.5,
+			max: 1,
+			placeholder: 0.75,
+			type: 'input',
+		},
+		{
+			name: 'Environmental Quality Index',
+			value: 0.65,
+			min: 0.3,
+			max: 1,
+			placeholder: 0.65,
+			type: 'input',
+		},
+		{
+			name: 'Housing Affordability Index',
+			value: 0.3,
+			min: 0,
+			max: 1,
+			placeholder: 0.3,
+			type: 'input',
+		},
+		{
+			name: 'Public Infrastructure Quality',
+			value: 0.6,
+			min: 0.2,
+			max: 1,
+			placeholder: 0.6,
+			type: 'input',
+		},
+		{
+			name: 'Age Limit to Change Name',
+			value: 'Yes',
+			placeholder: 'Select Yes/No',
+			type: 'select',
+			options: ['No', 'Yes'],
+		},
+	]);
+
+	const timeUnitOptions = ['hour', 'day', 'month', 'year'];
 	const [currentPage, setCurrentPage] = useState(0);
 	// 0 = Home, 1 = Settings
 	const updatePlayerData = (newData) => {
@@ -129,7 +308,7 @@ const App = () => {
 	const [gamePaused, setGamePaused] = useState(false);
 	const [timeMultiplier, setTimeMultiplier] = useState({
 		value: 1,
-		unit: 'minute',
+		unit: timeUnitOptions[0],
 	});
 	const formatDate = (date) => {
 		if (!date) {
@@ -345,6 +524,8 @@ const App = () => {
 					setGameTime={setGameTime}
 					playerBirthDate={playerBirthDate}
 					age={age}
+					settings={settings}
+					setSettings={setSettings}
 				/>
 			</div>
 		</div>
