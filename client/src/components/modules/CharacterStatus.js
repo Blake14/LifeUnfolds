@@ -7,7 +7,7 @@ const CharacterStatus = ({ colors, attributes }) => {
 	const secondColumnAttributes = attributes.slice(half);
 
 	const renderAttributes = (attrs) => (
-		<div style={{ flex: 1 }}>
+		<div style={{ flex: 1, overflowY: 'scroll', height: '100%' }}>
 			{attrs.map((attr) => (
 				<div
 					key={attr.id}
