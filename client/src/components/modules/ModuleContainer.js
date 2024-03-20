@@ -23,6 +23,9 @@ const ModuleContainer = ({
 	age,
 	settings,
 	setSettings,
+	setPlayerData,
+	notificationPreferences,
+	setNotificationPreferences,
 }) => {
 	const handleChange = (index, event) => {
 		const newSelectedIndices = [...selectedIndices];
@@ -128,6 +131,9 @@ const ModuleContainer = ({
 								age: age,
 								settings: settings,
 								setSettings: setSettings,
+								setPlayerData: setPlayerData,
+								notificationPreferences: notificationPreferences,
+								setNotificationPreferences: setNotificationPreferences,
 							})}
 						</div>
 					</div>
