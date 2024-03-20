@@ -93,7 +93,7 @@ const ModuleContainer = ({
 							{ModuleArray.map((module, idx) => (
 								<option
 									key={module.id}
-									value={idx}
+									value={idx} // This should be the index in ModuleArray
 									style={{
 										backgroundColor: colors.background,
 										color: colors.text,

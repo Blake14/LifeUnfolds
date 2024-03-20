@@ -19,9 +19,9 @@ const App = () => {
 		activeIcon: '#FFD700', // Active icon color
 		inactiveIcon: '#B1B1B1', // Inactive icon color
 	};
-	const [selectedIndices, setSelectedIndices] = useState(
-		Array.from({ length: 8 }, () => 0)
-	);
+	const [selectedIndices, setSelectedIndices] = useState([
+		1, 2, 3, 4, 5, 0, 0, 0,
+	]);
 	const [messages, setMessages] = useState([]);
 	const [gameTime, setGameTime] = useState(new Date(2024, 0, 1));
 	const [age, setAge] = useState('');
