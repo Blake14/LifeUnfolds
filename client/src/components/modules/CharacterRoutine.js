@@ -1,9 +1,7 @@
-const CharacterRoutine = ({ colors }) => {
-	const hours = Array.from(
-		{ length: 24 },
-		(_, index) => `${index}:00 - ${index + 1}:00`
-	);
-	const columnHours = [hours.slice(0, 24)];
+import FrequencyRange from '../FrequencyRange';
+import Button from 'react-bootstrap/Button';
+
+const CharacterRoutine = ({ colors, playerData, setPlayerData }) => {
 	const months = [
 		'January',
 		'February',
@@ -37,94 +35,117 @@ const CharacterRoutine = ({ colors }) => {
 				width: '100%',
 			}}
 		>
+			{/* Month Selector */}
 			<select
 				style={{
 					padding: '2px',
 					backgroundColor: colors.background,
 					color: colors.text,
 					border: `1px solid ${colors.accent}`,
-					width: '100%',
 					textAlign: 'center',
 					marginBottom: '2px',
 					fontSize: 12,
-					width: '100%',
 				}}
 			>
 				<option value=''>ALL MONTHS</option>
 				{months.map((month, index) => {
-					return <option value={index}>{month}</option>;
+					return (
+						<option key={index} value={index}>
+							{month}
+						</option>
+					);
 				})}
 			</select>
 
+			{/* Weekday Selector */}
 			<select
 				style={{
 					padding: '2px',
 					backgroundColor: colors.background,
 					color: colors.text,
 					border: `1px solid ${colors.accent}`,
-					width: '100%',
 					textAlign: 'center',
 					marginBottom: '2px',
 					fontSize: 12,
-					width: '100%',
 				}}
 			>
 				<option value=''>ALL DAYS</option>
 				{weekdays.map((week, index) => {
-					return <option value={index}>{week}</option>;
+					return (
+						<option key={index} value={index}>
+							{week}
+						</option>
+					);
 				})}
 			</select>
 
 			<div
 				style={{
 					display: 'flex',
-					flex: 1,
-					justifyContent: 'space-between',
+					justifyContent: 'space-evenly',
+					width: 125,
+				}}
+			>
+				<Button
+					variant='secondary'
+					size='sm'
+					style={{
+						fontSize: 12,
+						marginTop: 10,
+						marginBottom: -10,
+						marginLeft: 8,
+					}}
+				>
+					Ask AI
+				</Button>
+				<Button
+					variant='secondary'
+					size='sm'
+					style={{
+						fontSize: 12,
+						marginTop: 10,
+						marginBottom: -10,
+					}}
+				>
+					Reset
+				</Button>
+			</div>
+			<div
+				style={{
+					display: 'grid',
+					gridTemplateColumns: 'repeat(3, 1fr)', // Creates 3 columns
+					gap: '10px', // Adds space between columns
 					padding: '10px',
 					backgroundColor: colors.moduleBackground,
 					color: colors.textHighlight,
-					fontSize: 18,
+					fontSize: '18px',
 					overflowY: 'auto',
 					width: '100%',
-					marginTop: 10,
+					marginTop: '10px',
+					height: '100%',
 				}}
 			>
-				{columnHours.map((column, columnIndex) => (
-					<div
-						key={columnIndex}
-						style={{
-							width: '100%',
-						}}
-					>
-						{column.map((hour, hourIndex) => (
-							<div
-								key={hourIndex}
-								style={{
-									display: 'flex',
-									justifyContent: 'space-between',
-									alignItems: 'center',
-									borderBottom: `1px solid ${colors.textHighlight}`,
-									padding: '5px',
-									width: '100%',
-								}}
-							>
-								<span style={{ fontSize: 15, width: '60%' }}>{hour}</span>
-								<select
-									style={{
-										padding: '2px',
-										backgroundColor: colors.background,
-										color: colors.text,
-										border: `1px solid ${colors.accent}`,
-										width: '40%',
-										fontSize: 15,
-									}}
-								>
-									<option value=''>Select</option>
-								</select>
-							</div>
-						))}
-					</div>
-				))}
+				{playerData.map((player, playerIndex) =>
+					player.routine.map((routine, routineIndex) => (
+						<div
+							key={routineIndex}
+							style={{
+								display: 'flex',
+								justifyContent: 'center',
+								height: 35,
+							}}
+						>
+							<FrequencyRange
+								setPlayerData={setPlayerData}
+								playerIndex={playerIndex}
+								routineName={routine.name}
+								title={routine.name}
+								v={routine.value}
+								colors={colors}
+							/>
+						</div>
+					))
+				)}
 			</div>
 		</div>
 	);

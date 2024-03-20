@@ -24,6 +24,9 @@ const Pointer = ({
 	age,
 	setSettings,
 	settings,
+	setPlayerData,
+	notificationPreferences,
+	setNotificationPreferences,
 }) => {
 	// Use useEffect to handle side effects based on currentPage or playerData changes.
 	useEffect(() => {
@@ -71,6 +74,9 @@ const Pointer = ({
 				age={age}
 				settings={settings}
 				setSettings={setSettings}
+				setPlayerData={setPlayerData}
+				notificationPreferences={notificationPreferences}
+				setNotificationPreferences={setNotificationPreferences}
 			/>
 		);
 	} else if (currentPage === 1) {

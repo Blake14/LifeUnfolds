@@ -9,6 +9,17 @@ import GetLifeStage from './functions/GetLifeStage';
 import GenerateBirthdate from './functions/GenerateBirthdate';
 
 const App = () => {
+	const [toolTips, setToolTips] = useState({
+		enabled: true,
+		tips: [
+			{
+				id: 1,
+				order: 10,
+				title: 'Character Info Module',
+				description: '',
+			},
+		],
+	});
 	const colors = {
 		background: '#353535',
 		text: '#D9D9D9',
@@ -31,7 +42,54 @@ const App = () => {
 			birthDate: null,
 			deathDate: null,
 			log: [],
-			routine: [],
+			routine: [
+				{
+					name: 'Eat',
+					value: 5,
+					disabled: false,
+				},
+				{
+					name: 'Sleep',
+					value: 5,
+					disabled: false,
+				},
+				{
+					name: 'Work',
+					value: 5,
+					disabled: false,
+				},
+				{
+					name: 'Socialize',
+					value: 5,
+					disabled: false,
+				},
+				{
+					name: 'Exercise',
+					value: 5,
+					disabled: false,
+				},
+				{
+					name: 'Relax',
+					value: 5,
+					disabled: false,
+				},
+				{
+					name: 'Study',
+					value: 5,
+					disabled: false,
+				},
+				{
+					name: 'Shop',
+					value: 5,
+					disabled: false,
+				},
+				{
+					name: 'Clean',
+					value: 5,
+					disabled: false,
+				},
+			],
+
 			ratings: [
 				{
 					social: 0,
@@ -289,7 +347,43 @@ const App = () => {
 			return updatedData;
 		});
 	};
-
+	const [notificationPreferences, setNotificationPreferences] = useState([
+		{
+			name: 'Status Depletion',
+			current: true,
+			order: 10,
+		},
+		{
+			name: 'Pay Days',
+			current: false,
+			order: 20,
+		},
+		{
+			name: 'Major News',
+			current: true,
+			order: 30,
+		},
+		{
+			name: 'Family News',
+			current: true,
+			order: 40,
+		},
+		{
+			name: 'Job Announcements',
+			current: true,
+			order: 50,
+		},
+		{
+			name: 'Health Changes',
+			current: true,
+			order: 60,
+		},
+		{
+			name: 'Major Expenses',
+			current: true,
+			order: 70,
+		},
+	]);
 	useEffect(() => {
 		document.body.style.backgroundColor = colors.background;
 		document.body.style.color = colors.text;
@@ -526,6 +620,9 @@ const App = () => {
 					age={age}
 					settings={settings}
 					setSettings={setSettings}
+					setPlayerData={setPlayerData}
+					notificationPreferences={notificationPreferences}
+					setNotificationPreferences={setNotificationPreferences}
 				/>
 			</div>
 		</div>

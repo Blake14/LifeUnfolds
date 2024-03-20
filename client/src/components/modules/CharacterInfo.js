@@ -23,10 +23,9 @@ const CharacterInfo = ({
 	const [agePass, setAgePass] = useState(false);
 	const ageLimitSetting =
 		settings.find((s) => s.name === 'Age Limit to Change Name').value === 'Yes';
-
 	useEffect(() => {
 		const parsedAge = ParseAgeString(age);
-		const isOldEnough = parsedAge.unit === 'year' && parsedAge.age >= 18;
+		const isOldEnough = parsedAge.unit === 'years' && parsedAge.age >= 18;
 		setAgePass(ageLimitSetting ? isOldEnough : true);
 	}, [age, ageLimitSetting]);
 

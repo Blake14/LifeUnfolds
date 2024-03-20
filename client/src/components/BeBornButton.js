@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import GenerateRandomName from '../functions/GenerateRandomName';
 import GenerateBirthdate from '../functions/GenerateBirthdate';
 
@@ -9,9 +9,9 @@ const BeBornButton = ({
 	setMessages,
 	messages,
 	setGameTime,
-	playerData,
-	gameTime,
 }) => {
+	const [enableTooltips, setEnableTooltips] = useState(true);
+
 	const containerStyle = {
 		display: 'flex',
 		justifyContent: 'center',
@@ -31,6 +31,26 @@ const BeBornButton = ({
 		cursor: 'pointer',
 		boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
 		transition: 'transform 0.1s ease',
+	};
+
+	const labelStyle = {
+		display: 'inline-block',
+		color: colors.textHighlight,
+		cursor: 'pointer',
+		marginLeft: '10px',
+	};
+
+	const checkboxStyle = {
+		appearance: 'none',
+		backgroundColor: enableTooltips ? colors.highlight : 'transparent',
+		border: `2px solid ${colors.textHighlight}`,
+		padding: '5px',
+		display: 'inline-block',
+		position: 'relative',
+		top: '2px',
+		borderRadius: '3px',
+		cursor: 'pointer',
+		marginRight: '5px',
 	};
 
 	const handleBeBornClick = () => {
@@ -79,11 +99,33 @@ const BeBornButton = ({
 		setCurrentPage(0);
 	};
 
+	const toggleTooltips = () => {
+		setEnableTooltips(!enableTooltips);
+	};
+
 	return (
 		<div style={containerStyle}>
-			<button style={buttonStyle} onClick={handleBeBornClick}>
-				Be Born
-			</button>
+			<div>
+				<button
+					style={buttonStyle}
+					onClick={handleBeBornClick}
+					title={enableTooltips ? 'Click to start your journey!' : ''}
+				>
+					Be Born
+				</button>
+				<div style={{ marginTop: '20px' }}>
+					<input
+						id='enableTooltips'
+						type='checkbox'
+						checked={enableTooltips}
+						onChange={toggleTooltips}
+						style={checkboxStyle}
+					/>
+					<label htmlFor='enableTooltips' style={labelStyle}>
+						Enable Tooltips
+					</label>
+				</div>
+			</div>
 		</div>
 	);
 };
