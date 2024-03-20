@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { FaSave } from 'react-icons/fa';
-import SubWarning from '../SubWarning';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
+import { IoIosWarning } from 'react-icons/io';
 import ParseAgeString from '../../functions/ParseAgeString';
+import SubWarning from '../SubWarning';
 
 const CharacterInfo = ({
 	playerBirthDate,
@@ -89,7 +92,12 @@ const CharacterInfo = ({
 	};
 
 	return (
-		<div>
+		<div
+			style={{
+				overflowY: 'scroll',
+				height: '100%',
+			}}
+		>
 			<label style={lblStyle}>First Name: </label>
 			<input
 				type='text'
@@ -107,29 +115,15 @@ const CharacterInfo = ({
 				onChange={(e) => setEditFirstName(e.target.value)}
 			/>
 
-			<FaSave
-				style={{
-					...icnStyle,
-					color: agePass ? colors.textHighlight : 'gray',
-					cursor: agePass ? 'pointer' : 'not-allowed',
-				}}
-				onClick={() =>
-					agePass
-						? updateField('firstName', editFirstName)
-						: alert(
-								'You must be at least 18 years old to legally change your name.'
-						  )
-				}
-			/>
-			<br />
 			<SubWarning
-				alertText={
-					'You must be at least 18 years old to legally change your name.'
-				}
-				show={!agePass}
-				color={'#f06543'}
-				size={10}
+				agePass={agePass}
+				updateField={updateField}
+				editValue={editFirstName}
+				icnStyle={icnStyle}
+				fieldName='firstName'
+				colors={colors}
 			/>
+
 			<br />
 			<label style={lblStyle}>Last Name: </label>
 			<input
@@ -147,29 +141,15 @@ const CharacterInfo = ({
 				value={editLastName}
 				onChange={(e) => setEditLastName(e.target.value)}
 			/>
-			<FaSave
-				style={{
-					...icnStyle,
-					color: agePass ? colors.textHighlight : 'gray',
-					cursor: agePass ? 'pointer' : 'not-allowed',
-				}}
-				onClick={() =>
-					agePass
-						? updateField('lastName', editLastName)
-						: alert(
-								'You must be at least 18 years old to legally change your name.'
-						  )
-				}
-			/>
-			<br />
 			<SubWarning
-				alertText={
-					'You must be at least 18 years old to legally change your name.'
-				}
-				show={!agePass}
-				color={'#f06543'}
-				size={10}
+				agePass={agePass}
+				updateField={updateField}
+				editValue={editFirstName}
+				icnStyle={icnStyle}
+				fieldName='firstName'
+				colors={colors}
 			/>
+
 			<br />
 			<label style={lblStyle}>Nickname: </label>
 			<input
